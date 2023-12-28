@@ -1,5 +1,6 @@
 import express from "express";
 import mysql from "mysql2"; // Use mysql2 instead of mysql
+import cors from "cors";
 
 const app = express();
 
@@ -14,7 +15,7 @@ const db = mysql.createConnection({
 
 
 app.use(express.json())
-
+app.use(cors());
 
 //* ALERT THAT YOU ARE A SUCCESS CONNECTED
 app.get("/", (req, res) => {
