@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Add() {
     const [book, setBook] = useState({
@@ -8,6 +10,8 @@ function Add() {
         cover:''
     });
 
+    const navigate = useNavigate()
+
     const handleChange = (e)=>{
         setBook(prev=>({...prev, [e.target.name]: e.target.value}))
     };
@@ -15,9 +19,10 @@ function Add() {
     const handleClick = async (e) => {
         e.preventDefault();
         try {
-            
+            await axios.post("http://localhost:8800/books", book);
+            navigate("/");
         } catch (error) {
-            
+            console.log(error);
         }
     };
 
@@ -29,7 +34,7 @@ function Add() {
       <input type="text" placeholder="Price" onChange={handleChange} name="price"/>
       <input type="text" placeholder="Cover" onChange={handleChange} name="cover"/>
 
-      <button onClick={handleClick}>Add</button>
+      <button className="formButton" onClick={handleClick}>Add</button>
     </div>
   );
 }
